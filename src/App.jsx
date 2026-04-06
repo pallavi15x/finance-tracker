@@ -1,10 +1,5 @@
 function App() {
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>Finance Tracker 💰</h1>
-      <p>App is working!</p>
-    </div>
-  );
+  return <h1>WORKING ✅</h1>;
 }
 
 export default App;
