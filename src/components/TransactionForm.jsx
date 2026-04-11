@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-function TransactionForm() {
+
+    function TransactionForm({ addTransaction }) {
   const [formData, setFormData] = useState({
     amount: "",
     type: "expense",
@@ -9,7 +10,6 @@ function TransactionForm() {
     note: "",
   });
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -17,87 +17,115 @@ function TransactionForm() {
     });
   };
 
-  // Handle submit
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Transaction:", formData);
+  e.preventDefault();
 
-    // Reset form
-    setFormData({
-      amount: "",
-      type: "expense",
-      category: "",
-      date: "",
-      note: "",
-    });
-  };
+  addTransaction(formData); // 🔥 send data to App
+
+  setFormData({
+    amount: "",
+    type: "expense",
+    category: "",
+    date: "",
+    note: "",
+  });
+};
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-2xl shadow-md mb-6"
+      className="bg-white p-6 rounded-2xl shadow-lg mb-6 border"
     >
-      <h2 className="text-xl font-semibold mb-4">
-        Add Transaction
+      <h2 className="text-2xl font-semibold mb-6 text-gray-700">
+        ➕ Add Transaction
       </h2>
 
-      {/* Amount */}
-      <input
-        type="number"
-        name="amount"
-        placeholder="Amount"
-        value={formData.amount}
-        onChange={handleChange}
-        className="w-full p-2 border rounded mb-3"
-        required
-      />
+      <div className="grid md:grid-cols-2 gap-4">
+        
+        {/* Amount */}
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">
+            Amount
+          </label>
+          <input
+            type="number"
+            name="amount"
+            placeholder="Enter amount"
+            value={formData.amount}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
+        </div>
 
-      {/* Type */}
-      <select
-        name="type"
-        value={formData.type}
-        onChange={handleChange}
-        className="w-full p-2 border rounded mb-3"
-      >
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-      </select>
+        {/* Type */}
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">
+            Type
+          </label>
+          <select
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            <option value="income">💰 Income</option>
+            <option value="expense">💸 Expense</option>
+          </select>
+        </div>
 
-      {/* Category */}
-      <input
-        type="text"
-        name="category"
-        placeholder="Category (e.g. Food, Salary)"
-        value={formData.category}
-        onChange={handleChange}
-        className="w-full p-2 border rounded mb-3"
-        required
-      />
+        {/* Category */}
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">
+            Category
+          </label>
+          <input
+            type="text"
+            name="category"
+            placeholder="Food, Salary, Travel..."
+            value={formData.category}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
+        </div>
 
-      {/* Date */}
-      <input
-        type="date"
-        name="date"
-        value={formData.date}
-        onChange={handleChange}
-        className="w-full p-2 border rounded mb-3"
-        required
-      />
+        {/* Date */}
+        <div>
+          <label className="block text-sm text-gray-600 mb-1">
+            Date
+          </label>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          />
+        </div>
+
+      </div>
 
       {/* Note */}
-      <input
-        type="text"
-        name="note"
-        placeholder="Note (optional)"
-        value={formData.note}
-        onChange={handleChange}
-        className="w-full p-2 border rounded mb-3"
-      />
+      <div className="mt-4">
+        <label className="block text-sm text-gray-600 mb-1">
+          Note
+        </label>
+        <input
+          type="text"
+          name="note"
+          placeholder="Optional note..."
+          value={formData.note}
+          onChange={handleChange}
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+      </div>
 
-      {/* Submit */}
+      {/* Button */}
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+        className="mt-6 w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-3 rounded-lg font-medium hover:opacity-90 transition"
       >
         Add Transaction
       </button>
